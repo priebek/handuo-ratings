@@ -9,12 +9,18 @@ interface HeadCell {
 
 export const headCells: HeadCell[] = [
   {
-    id: "title",
+    id: "episode",
     numeric: false,
     disablePadding: true,
-    label: "Title",
+    label: "Episode",
   },
-  { id: "episode", numeric: true, disablePadding: false, label: "Episode" },
-  { id: "link", numeric: true, disablePadding: false, label: "Link" },
   { id: "title", numeric: true, disablePadding: false, label: "Title" },
+  { id: "link", numeric: true, disablePadding: false, label: "Link" },
+  { id: "imdb", numeric: true, disablePadding: false, label: "IMDB" },
+  { id: "type", numeric: true, disablePadding: false, label: "Type" },
+  { id: "score", numeric: true, disablePadding: false, label: "Score" },
+  { id: "category", numeric: true, disablePadding: false, label: "Category" },
+  { id: "genre", numeric: true, disablePadding: false, label: "Genre" },
+  { id: "year", numeric: true, disablePadding: false, label: "Year" },
+  { id: "broadcast", numeric: true, disablePadding: false, label: "Broadcast" },
 ];

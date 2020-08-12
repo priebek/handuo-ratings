@@ -13,29 +13,9 @@ import getComparator from "./utility/getcomparator";
 import { Order } from "./utility/order";
 import stableSort from "./utility/stablesort";
 import { EnhancedTableToolbar } from "./components/enhancedtabletoolbar";
-// import dataJson from './data.json';
+import dataJson from "./data.json";
 
-function createData(
-): DataModel {
-  let obj: DataModel = JSON.parse(`{
-    "episode":"MSP",
-    "link":"http://handuo.libsyn.com/han-duo-minisode-pet-sematary",
-    "title":"Pet Sematary",
-    "imdb":"https://www.imdb.com/title/tt0837563",
-    "type":"Film",
-    "score":"3.5",
-    "category":"Anmeldelse",
-    "genre":"Horror, Mystery, Thriller",
-    "year":"2019",
-    "broadcast":"12.04.2019"
- }`);
-
-  return { title: obj.title, episode: obj.episode, link: obj.link };
-}
-
-const rows = [
-  createData()
-];
+const rows = dataJson;
 
 export default function App() {
   const classes = useStyles();
@@ -143,12 +123,17 @@ export default function App() {
                         scope="row"
                         padding="none"
                       >
-                        {row.title}
+                        {row.episode}
                       </TableCell>
-                      <TableCell align="right">{row.episode}</TableCell>
                       <TableCell align="right">{row.title}</TableCell>
                       <TableCell align="right">{row.link}</TableCell>
-                      <TableCell align="right">{row.title}</TableCell>
+                      <TableCell align="right">{row.imdb}</TableCell>
+                      <TableCell align="right">{row.type}</TableCell>
+                      <TableCell align="right">{row.score}</TableCell>
+                      <TableCell align="right">{row.category}</TableCell>
+                      <TableCell align="right">{row.genre}</TableCell>
+                      <TableCell align="right">{row.year}</TableCell>
+                      <TableCell align="right">{row.broadcast}</TableCell>
                     </TableRow>
                   );
                 })}
