@@ -12,8 +12,8 @@ import EnhancedTableHead from "./components/enhancedtableheader";
 import getComparator from "./utility/getcomparator";
 import { Order } from "./utility/order";
 import stableSort from "./utility/stablesort";
-import { EnhancedTableToolbar } from "./components/enhancedtabletoolbar";
 import dataJson from "./data.json";
+import { Typography } from "@material-ui/core";
 
 const rows = dataJson;
 
@@ -43,26 +43,6 @@ export default function App() {
     setSelected([]);
   };
 
-  const handleClick = (event: React.MouseEvent<unknown>, name: string) => {
-    const selectedIndex = selected.indexOf(name);
-    let newSelected: string[] = [];
-
-    if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, name);
-    } else if (selectedIndex === 0) {
-      newSelected = newSelected.concat(selected.slice(1));
-    } else if (selectedIndex === selected.length - 1) {
-      newSelected = newSelected.concat(selected.slice(0, -1));
-    } else if (selectedIndex > 0) {
-      newSelected = newSelected.concat(
-        selected.slice(0, selectedIndex),
-        selected.slice(selectedIndex + 1)
-      );
-    }
-
-    setSelected(newSelected);
-  };
-
   const handleChangePage = (event: unknown, newPage: number) => {
     setPage(newPage);
   };
@@ -74,15 +54,15 @@ export default function App() {
     setPage(0);
   };
 
-  const isSelected = (name: string) => selected.indexOf(name) !== -1;
-
   const emptyRows =
     rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
 
   return (
     <div className={classes.root}>
       <Paper className={classes.paper}>
-        <EnhancedTableToolbar numSelected={selected.length} />
+        <Typography variant="h2" align="center">
+          Ratings
+        </Typography>
         <TableContainer>
           <Table
             className={classes.table}
@@ -103,19 +83,10 @@ export default function App() {
               {stableSort(rows, getComparator(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, index) => {
-                  const isItemSelected = isSelected(row.title);
                   const labelId = `enhanced-table-checkbox-${index}`;
 
                   return (
-                    <TableRow
-                      hover
-                      onClick={(event) => handleClick(event, row.title)}
-                      role="checkbox"
-                      aria-checked={isItemSelected}
-                      tabIndex={-1}
-                      key={row.title}
-                      selected={isItemSelected}
-                    >
+                    <TableRow hover tabIndex={-1} key={row.title}>
                       <TableCell padding="checkbox"></TableCell>
                       <TableCell
                         component="th"
