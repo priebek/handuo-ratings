@@ -13,37 +13,34 @@ import getComparator from "./utility/getcomparator";
 import { Order } from "./utility/order";
 import stableSort from "./utility/stablesort";
 import { EnhancedTableToolbar } from "./components/enhancedtabletoolbar";
+// import dataJson from './data.json';
 
 function createData(
-  name: string,
-  calories: number,
-  fat: number,
-  carbs: number,
-  protein: number
 ): DataModel {
-  return { name, calories, fat, carbs, protein };
+  let obj: DataModel = JSON.parse(`{
+    "episode":"MSP",
+    "link":"http://handuo.libsyn.com/han-duo-minisode-pet-sematary",
+    "title":"Pet Sematary",
+    "imdb":"https://www.imdb.com/title/tt0837563",
+    "type":"Film",
+    "score":"3.5",
+    "category":"Anmeldelse",
+    "genre":"Horror, Mystery, Thriller",
+    "year":"2019",
+    "broadcast":"12.04.2019"
+ }`);
+
+  return { title: obj.title, episode: obj.episode, link: obj.link };
 }
 
 const rows = [
-  createData("Cupcake", 305, 3.7, 67, 4.3),
-  createData("Donut", 452, 25.0, 51, 4.9),
-  createData("Eclair", 262, 16.0, 24, 6.0),
-  createData("Frozen yoghurt", 159, 6.0, 24, 4.0),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-  createData("Honeycomb", 408, 3.2, 87, 6.5),
-  createData("Ice cream sandwich", 237, 9.0, 37, 4.3),
-  createData("Jelly Bean", 375, 0.0, 94, 0.0),
-  createData("KitKat", 518, 26.0, 65, 7.0),
-  createData("Lollipop", 392, 0.2, 98, 0.0),
-  createData("Marshmallow", 318, 0, 81, 2.0),
-  createData("Nougat", 360, 19.0, 9, 37.0),
-  createData("Oreo", 437, 18.0, 63, 4.0),
+  createData()
 ];
 
 export default function App() {
   const classes = useStyles();
   const [order, setOrder] = React.useState<Order>("asc");
-  const [orderBy, setOrderBy] = React.useState<keyof DataModel>("calories");
+  const [orderBy, setOrderBy] = React.useState<keyof DataModel>("episode");
   const [selected, setSelected] = React.useState<string[]>([]);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(25);
@@ -59,7 +56,7 @@ export default function App() {
 
   const handleSelectAllClick = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.checked) {
-      const newSelecteds = rows.map((n) => n.name);
+      const newSelecteds = rows.map((n) => n.title);
       setSelected(newSelecteds);
       return;
     }
@@ -126,17 +123,17 @@ export default function App() {
               {stableSort(rows, getComparator(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, index) => {
-                  const isItemSelected = isSelected(row.name);
+                  const isItemSelected = isSelected(row.title);
                   const labelId = `enhanced-table-checkbox-${index}`;
 
                   return (
                     <TableRow
                       hover
-                      onClick={(event) => handleClick(event, row.name)}
+                      onClick={(event) => handleClick(event, row.title)}
                       role="checkbox"
                       aria-checked={isItemSelected}
                       tabIndex={-1}
-                      key={row.name}
+                      key={row.title}
                       selected={isItemSelected}
                     >
                       <TableCell padding="checkbox"></TableCell>
@@ -146,12 +143,12 @@ export default function App() {
                         scope="row"
                         padding="none"
                       >
-                        {row.name}
+                        {row.title}
                       </TableCell>
-                      <TableCell align="right">{row.calories}</TableCell>
-                      <TableCell align="right">{row.fat}</TableCell>
-                      <TableCell align="right">{row.carbs}</TableCell>
-                      <TableCell align="right">{row.protein}</TableCell>
+                      <TableCell align="right">{row.episode}</TableCell>
+                      <TableCell align="right">{row.title}</TableCell>
+                      <TableCell align="right">{row.link}</TableCell>
+                      <TableCell align="right">{row.title}</TableCell>
                     </TableRow>
                   );
                 })}

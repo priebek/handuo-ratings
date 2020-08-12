@@ -9,13 +9,12 @@ interface HeadCell {
 
 export const headCells: HeadCell[] = [
   {
-    id: "name",
+    id: "title",
     numeric: false,
     disablePadding: true,
-    label: "Dessert (100g serving)",
+    label: "Title",
   },
-  { id: "calories", numeric: true, disablePadding: false, label: "Calories" },
-  { id: "fat", numeric: true, disablePadding: false, label: "Fat (g)" },
-  { id: "carbs", numeric: true, disablePadding: false, label: "Carbs (g)" },
-  { id: "protein", numeric: true, disablePadding: false, label: "Protein (g)" },
+  { id: "episode", numeric: true, disablePadding: false, label: "Episode" },
+  { id: "link", numeric: true, disablePadding: false, label: "Link" },
+  { id: "title", numeric: true, disablePadding: false, label: "Title" },
 ];
