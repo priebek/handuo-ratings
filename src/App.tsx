@@ -12,38 +12,15 @@ import EnhancedTableHead from "./components/enhancedtableheader";
 import getComparator from "./utility/getcomparator";
 import { Order } from "./utility/order";
 import stableSort from "./utility/stablesort";
-import { EnhancedTableToolbar } from "./components/enhancedtabletoolbar";
+import dataJson from "./data.json";
+import { Typography } from "@material-ui/core";
 
-function createData(
-  name: string,
-  calories: number,
-  fat: number,
-  carbs: number,
-  protein: number
-): DataModel {
-  return { name, calories, fat, carbs, protein };
-}
-
-const rows = [
-  createData("Cupcake", 305, 3.7, 67, 4.3),
-  createData("Donut", 452, 25.0, 51, 4.9),
-  createData("Eclair", 262, 16.0, 24, 6.0),
-  createData("Frozen yoghurt", 159, 6.0, 24, 4.0),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-  createData("Honeycomb", 408, 3.2, 87, 6.5),
-  createData("Ice cream sandwich", 237, 9.0, 37, 4.3),
-  createData("Jelly Bean", 375, 0.0, 94, 0.0),
-  createData("KitKat", 518, 26.0, 65, 7.0),
-  createData("Lollipop", 392, 0.2, 98, 0.0),
-  createData("Marshmallow", 318, 0, 81, 2.0),
-  createData("Nougat", 360, 19.0, 9, 37.0),
-  createData("Oreo", 437, 18.0, 63, 4.0),
-];
+const rows = dataJson;
 
 export default function App() {
   const classes = useStyles();
   const [order, setOrder] = React.useState<Order>("asc");
-  const [orderBy, setOrderBy] = React.useState<keyof DataModel>("calories");
+  const [orderBy, setOrderBy] = React.useState<keyof DataModel>("episode");
   const [selected, setSelected] = React.useState<string[]>([]);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(25);
@@ -59,31 +36,11 @@ export default function App() {
 
   const handleSelectAllClick = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.checked) {
-      const newSelecteds = rows.map((n) => n.name);
+      const newSelecteds = rows.map((n) => n.title);
       setSelected(newSelecteds);
       return;
     }
     setSelected([]);
-  };
-
-  const handleClick = (event: React.MouseEvent<unknown>, name: string) => {
-    const selectedIndex = selected.indexOf(name);
-    let newSelected: string[] = [];
-
-    if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, name);
-    } else if (selectedIndex === 0) {
-      newSelected = newSelected.concat(selected.slice(1));
-    } else if (selectedIndex === selected.length - 1) {
-      newSelected = newSelected.concat(selected.slice(0, -1));
-    } else if (selectedIndex > 0) {
-      newSelected = newSelected.concat(
-        selected.slice(0, selectedIndex),
-        selected.slice(selectedIndex + 1)
-      );
-    }
-
-    setSelected(newSelected);
   };
 
   const handleChangePage = (event: unknown, newPage: number) => {
@@ -97,15 +54,15 @@ export default function App() {
     setPage(0);
   };
 
-  const isSelected = (name: string) => selected.indexOf(name) !== -1;
-
   const emptyRows =
     rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
 
   return (
     <div className={classes.root}>
       <Paper className={classes.paper}>
-        <EnhancedTableToolbar numSelected={selected.length} />
+        <Typography variant="h2" align="center">
+          Ratings
+        </Typography>
         <TableContainer>
           <Table
             className={classes.table}
@@ -126,19 +83,10 @@ export default function App() {
               {stableSort(rows, getComparator(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, index) => {
-                  const isItemSelected = isSelected(row.name);
                   const labelId = `enhanced-table-checkbox-${index}`;
 
                   return (
-                    <TableRow
-                      hover
-                      onClick={(event) => handleClick(event, row.name)}
-                      role="checkbox"
-                      aria-checked={isItemSelected}
-                      tabIndex={-1}
-                      key={row.name}
-                      selected={isItemSelected}
-                    >
+                    <TableRow hover tabIndex={-1} key={row.title}>
                       <TableCell padding="checkbox"></TableCell>
                       <TableCell
                         component="th"
@@ -146,12 +94,17 @@ export default function App() {
                         scope="row"
                         padding="none"
                       >
-                        {row.name}
+                        {row.episode}
                       </TableCell>
-                      <TableCell align="right">{row.calories}</TableCell>
-                      <TableCell align="right">{row.fat}</TableCell>
-                      <TableCell align="right">{row.carbs}</TableCell>
-                      <TableCell align="right">{row.protein}</TableCell>
+                      <TableCell align="right">{row.title}</TableCell>
+                      <TableCell align="right">{row.link}</TableCell>
+                      <TableCell align="right">{row.imdb}</TableCell>
+                      <TableCell align="right">{row.type}</TableCell>
+                      <TableCell align="right">{row.score}</TableCell>
+                      <TableCell align="right">{row.category}</TableCell>
+                      <TableCell align="right">{row.genre}</TableCell>
+                      <TableCell align="right">{row.year}</TableCell>
+                      <TableCell align="right">{row.broadcast}</TableCell>
                     </TableRow>
                   );
                 })}
