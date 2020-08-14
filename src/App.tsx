@@ -13,7 +13,9 @@ import getComparator from "./utility/getcomparator";
 import { Order } from "./utility/order";
 import stableSort from "./utility/stablesort";
 import dataJson from "./data.json";
-import { Typography } from "@material-ui/core";
+import { Typography, Button } from "@material-ui/core";
+import TheatersIcon from "@material-ui/icons/Theaters";
+import MusicNoteIcon from "@material-ui/icons/MusicNote";
 
 const rows = dataJson;
 
@@ -97,8 +99,16 @@ export default function App() {
                         {row.episode}
                       </TableCell>
                       <TableCell align="right">{row.title}</TableCell>
-                      <TableCell align="right">{row.link}</TableCell>
-                      <TableCell align="right">{row.imdb}</TableCell>
+                      <TableCell align="right">
+                        <Button href={row.link} target="_blank">
+                          <MusicNoteIcon />
+                        </Button>
+                      </TableCell>
+                      <TableCell align="right">
+                        <Button href={row.imdb} target="_blank">
+                          <TheatersIcon />
+                        </Button>
+                      </TableCell>
                       <TableCell align="right">{row.type}</TableCell>
                       <TableCell align="right">{row.score}</TableCell>
                       <TableCell align="right">{row.category}</TableCell>
