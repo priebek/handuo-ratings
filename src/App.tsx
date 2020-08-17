@@ -20,8 +20,19 @@ export default function App() {
           pageSizeOptions: [5, 25, 100, 1000],
         }}
         columns={[
-          { title: "Episode", field: "episode" },
-          { title: "Title", field: "title" },
+          {
+            title: "Episode",
+            field: "episode",
+            type: "numeric",
+            defaultSort: "asc",
+            align: "left",
+            cellStyle: { whiteSpace: "nowrap" },
+          },
+          {
+            title: "Title",
+            field: "title",
+            cellStyle: { whiteSpace: "nowrap" },
+          },
           {
             title: "Link",
             field: "link",
@@ -30,6 +41,7 @@ export default function App() {
                 <MusicNoteIcon />
               </Button>
             ),
+            cellStyle: { whiteSpace: "nowrap" },
           },
           {
             title: "IMDB",
@@ -39,13 +51,32 @@ export default function App() {
                 <TheatersIcon />
               </Button>
             ),
+            cellStyle: { whiteSpace: "nowrap" },
           },
-          { title: "Type", field: "type" },
-          { title: "Score", field: "score" },
-          { title: "Category", field: "category" },
-          { title: "Genre", field: "genre" },
-          { title: "Year", field: "year" },
-          { title: "Broadcast", field: "broadcast" },
+          { title: "Type", field: "type", cellStyle: { whiteSpace: "nowrap" } },
+          {
+            title: "Score",
+            field: "score",
+            cellStyle: { whiteSpace: "nowrap" },
+          },
+          {
+            title: "Category",
+            field: "category",
+            cellStyle: { whiteSpace: "nowrap" },
+          },
+          {
+            title: "Genre",
+            field: "genre",
+            cellStyle: { whiteSpace: "nowrap" },
+          },
+          { title: "Year", field: "year", cellStyle: { whiteSpace: "nowrap" } },
+          {
+            title: "Broadcast",
+            field: "broadcast",
+            type: "date",
+            defaultSort: "asc",
+            cellStyle: { whiteSpace: "nowrap" },
+          },
         ]}
         data={dataJson}
         title="Ratings"
