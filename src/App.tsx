@@ -4,6 +4,11 @@ import { Button } from "@material-ui/core";
 import TheatersIcon from "@material-ui/icons/Theaters";
 import MusicNoteIcon from "@material-ui/icons/MusicNote";
 import MaterialTable from "material-table";
+import moment from "moment";
+
+function formatDate(date: string) {
+  return moment(date, "dd.MM.yyyy").format("DD-MM-YYYY");
+}
 
 export default function App() {
   return (
@@ -24,7 +29,6 @@ export default function App() {
             title: "Episode",
             field: "episode",
             type: "numeric",
-            defaultSort: "asc",
             align: "left",
             cellStyle: { whiteSpace: "nowrap" },
           },
@@ -73,8 +77,9 @@ export default function App() {
           {
             title: "Broadcast",
             field: "broadcast",
-            type: "date",
             defaultSort: "asc",
+            type: "datetime",
+            render: (x) => formatDate(x["broadcast"]),
             cellStyle: { whiteSpace: "nowrap" },
           },
         ]}
