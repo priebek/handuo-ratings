@@ -1,6 +1,5 @@
 import React from "react";
 import { Button } from "@material-ui/core";
-import TheatersIcon from "@material-ui/icons/Theaters";
 import MusicNoteIcon from "@material-ui/icons/MusicNote";
 import { Column } from "material-table";
 import { DataModel } from "../models/DataModel";
@@ -34,16 +33,16 @@ export function materialTableColumns(): Column<DataModel>[] {
       ),
       cellStyle: { whiteSpace: "nowrap" },
     },
-    {
-      title: "IMDB",
-      field: "imdb",
-      render: (x) => (
-        <Button href={x.imdb} target="_blank">
-          <TheatersIcon />
-        </Button>
-      ),
-      cellStyle: { whiteSpace: "nowrap" },
-    },
+    // {
+    //   title: "IMDB",
+    //   field: "imdb",
+    //   render: (x) => (
+    //     <Button href={x.imdb} target="_blank">
+    //       <TheatersIcon />
+    //     </Button>
+    //   ),
+    //   cellStyle: { whiteSpace: "nowrap" },
+    // },
     { title: "Type", field: "type", cellStyle: { whiteSpace: "nowrap" } },
     {
       title: "Score",
